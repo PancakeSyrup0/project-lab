@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Campus Canteen Authentication</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+  
+<div class="logo-wrapper">
+  <div class="logo">
+    <img src="logo.png" alt="Logo" />
+  </div>
+</div>
+
+
+<div class="bg"></div>
+
+<div class="auth-container">
+
+  <div class="card">
+
+    <h2>🍽️ Magis Canteen Login</h2>
+    <p class="subtitle">Choose your role to continue</p>
+
+    <div class="tab-container">
+      <button class="tab active" onclick="showLogin('faculty')">Faculty</button>
+      <button class="tab" onclick="showLogin('staff')">Canteen Staff</button>
+    </div>
+
+    <div id="faculty-login" class="login-form">
+      <label>Email</label>
+      <input type="text" placeholder="Faculty email" />
+
+      <label>Password</label>
+      <input type="password" placeholder="Password" />
+
+      <button class="btn login-btn">Login as Faculty</button>
+    </div>
+
+    <div id="staff-login" class="login-form hidden">
+      <label>Staff ID</label>
+      <input type="text" placeholder="Canteen staff ID" />
+
+      <label>Password</label>
+      <input type="password" placeholder="Password" />
+
+      <button class="btn staff-btn">Login as Staff</button>
+    </div>
+
+    <a href="#" class="link">Forgot Password?</a>
+  </div>
+
+  <div class="card">
+    <h2>📝 Faculty Registration</h2>
+    <p class="subtitle">Register to order food from the campus canteen</p>
+
+    <label>Full Name</label>
+    <input type="text" placeholder="Your name" />
+
+    <label>Email</label>
+    <input type="text" placeholder="College email" />
+
+    <label>Department</label>
+
+    <select id="dept" name="dept">
+      <option value="IT">School of Information Technology</option>
+      <option value="PS">School of Business</option>
+      <option value="HUM">School of Chemincal Sciences</option>
+      <option value="LANG">School of Humanities and Social Sciences</option>
+      <option value="LANG">School of Languages and Literatures</option>
+      <option value="LANG">School of Life Sciences</option>
+      <option value="LANG">School of Physical Sciences</option>
+      <option value="LANG">School of Social Work</option>
+      <option value="LANG">School of Communication and Media Studies</option>
+    </select>
+
+    <label>Create Password</label>
+    <input type="password" placeholder="Create password" />
+
+    <label>Confirm Password</label>
+    <input type="password" placeholder="Confirm password" />
+
+    <button class="btn signup-btn">Sign Up</button>
+  </div>
+
+</div>
+
+<footer>
+  © Magis Canteen 
+</footer>
+
+<script>
+  function showLogin(type) {
+    document.getElementById("faculty-login").classList.add("hidden");
+    document.getElementById("staff-login").classList.add("hidden");
+
+    document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+
+    if (type === "faculty") {
+      document.getElementById("faculty-login").classList.remove("hidden");
+      document.querySelectorAll(".tab")[0].classList.add("active");
+    } else {
+      document.getElementById("staff-login").classList.remove("hidden");
+      document.querySelectorAll(".tab")[1].classList.add("active");
+    }
+  }
+</script>
+
+
+
+
+</body>
+</html>
