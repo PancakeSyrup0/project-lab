@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Faculty Dashboard</title>
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<h1>👨‍🏫 Faculty Dashboard</h1>
+
+<section>
+<h2>🍽️ Order Food</h2>
+<select id="meetingRoom"></select>
+<div id="menuItems"></div>
+<button onclick="placeOrder()">Place Order</button>
+</section>
+
+<section>
+<h2>📄 Your Orders</h2>
+<table>
+<thead>
+<tr><th>ID</th><th>Items</th><th>Amount</th><th>Time</th></tr>
+</thead>
+<tbody id="ordersTable"></tbody>
+</table>
+</section>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

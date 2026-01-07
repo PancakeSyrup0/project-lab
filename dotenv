@@ -1,0 +1,5 @@
+DB_HOST=localhost
+DB_USER=magis
+DB_PASSWORD=password123
+DB_NAME=magis_canteen
+PORT=3000
