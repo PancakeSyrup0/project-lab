@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="common.css">
+</head>
+<body>
+
+<h1>🛡️ Admin Dashboard</h1>
+
+<section>
+<h2>👥 Users</h2>
+<table>
+<thead>
+<tr><th>Name</th><th>Email</th><th>Role</th></tr>
+</thead>
+<tbody id="usersTable"></tbody>
+</table>
+</section>
+
+<section>
+<h2>🏢 Rooms</h2>
+<input id="roomName" placeholder="Room name">
+<button onclick="addRoom()">Add</button>
+<ul id="roomList"></ul>
+</section>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

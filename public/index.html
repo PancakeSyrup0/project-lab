@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Campus Canteen Authentication</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+
+<div class="logo-wrapper">
+  <div class="logo">
+    <img src="logo.png" alt="Logo" />
+  </div>
+</div>
+
+<div class="bg"></div>
+
+<div class="auth-container">
+
+  <!-- LOGIN CARD -->
+  <div class="card">
+    <h2>🍽️ Magis Canteen Login</h2>
+    <p class="subtitle">Choose your role to continue</p>
+
+    <div class="tab-container">
+      <button class="tab active" onclick="showLogin('faculty')">Faculty</button>
+      <button class="tab" onclick="showLogin('staff')">Staff</button>
+      <button class="tab" onclick="showLogin('admin')">Admin</button>
+    </div>
+
+    <!-- FACULTY LOGIN -->
+    <div id="faculty-login" class="login-form">
+      <label>Email</label>
+      <input id="facultyEmail" />
+      <label>Password</label>
+      <input id="facultyPassword" type="password" />
+      <button class="btn login-btn" onclick="facultyLogin()">Login as Faculty</button>
+    </div>
+
+    <!-- STAFF LOGIN -->
+    <div id="staff-login" class="login-form hidden">
+      <label>Staff Email</label>
+      <input id="staffEmail" />
+      <label>Password</label>
+      <input id="staffPassword" type="password" />
+      <button class="btn staff-btn" onclick="staffLogin()">Login as Staff</button>
+    </div>
+
+    <!-- ADMIN LOGIN -->
+    <div id="admin-login" class="login-form hidden">
+      <label>Email</label>
+      <input id="adminEmail" />
+      <label>Password</label>
+      <input id="adminPassword" type="password" />
+      <button class="btn login-btn" onclick="adminLogin()">Login as Admin</button>
+    </div>
+  </div>
+
+  <!-- REGISTRATION -->
+  <div class="card">
+    <h2>📝 Faculty Registration</h2>
+
+    <label>Full Name</label>
+    <input id="regName" />
+
+    <label>Email</label>
+    <input id="regEmail" />
+
+    <label>Department</label>
+    <select id="dept">
+      <option value="IT">IT</option>
+      <option value="BUS">Business</option>
+      <option value="CHEM">Chemical Sciences</option>
+      <option value="HUM">Humanities</option>
+    </select>
+
+    <label>Password</label>
+    <input id="regPassword" type="password" />
+
+    <label>Confirm Password</label>
+    <input id="regConfirm" type="password" />
+
+    <button class="btn signup-btn" onclick="facultyRegister()">Sign Up</button>
+  </div>
+
+</div>
+
+<footer>© Magis Canteen</footer>
+
+<script>
+function showLogin(type) {
+  // Hide all login forms
+  ["faculty", "staff", "admin"].forEach(r =>
+    document.getElementById(r + "-login").classList.add("hidden")
+  );
+
+  // Show the selected login form
+  document.getElementById(type + "-login").classList.remove("hidden");
+
+  // Remove active class from all tabs
+  document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+
+  // Add active class to the correct tab
+  if (type === "faculty") document.querySelectorAll(".tab")[0].classList.add("active");
+  else if (type === "staff") document.querySelectorAll(".tab")[1].classList.add("active");
+  else if (type === "admin") document.querySelectorAll(".tab")[2].classList.add("active");
+}
+
+/* ---------- FACULTY REGISTER ---------- */
+async function facultyRegister() {
+  if (regPassword.value !== regConfirm.value) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  const res = await fetch("/faculty-register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: regName.value,
+      email: regEmail.value,
+      password: regPassword.value,
+      department: dept.value
+    })
+  });
+
+  const data = await res.json();
+  console.log("Register response:", data);
+
+  if (res.ok) {
+    alert(data.message || "Registration successful");
+  } else {
+    alert(data.message || "Registration failed");
+  }
+}
+
+/* ---------- FACULTY LOGIN ---------- */
+async function facultyLogin() {
+  const res = await fetch("/faculty-login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: facultyEmail.value,
+      password: facultyPassword.value
+    })
+  });
+
+  const data = await res.json();
+
+  if (res.ok && data.success) {
+    location.href = "faculty-dashboard.html";
+  } else {
+    alert(data.message || "Invalid faculty login");
+  }
+}
+
+/* ---------- STAFF LOGIN ---------- */
+async function staffLogin() {
+  const res = await fetch("/staff-login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: staffEmail.value,
+      password: staffPassword.value
+    })
+  });
+
+  const data = await res.json();
+
+  if (res.ok && data.success) {
+    location.href = "staff-dashboard.html";
+  } else {
+    alert(data.message || "Invalid staff login");
+  }
+}
+
+/* ---------- ADMIN LOGIN ---------- */
+async function adminLogin() {
+  const res = await fetch("/admin-login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: adminEmail.value,
+      password: adminPassword.value
+    })
+  });
+
+  const data = await res.json();
+
+  if (res.ok && data.success) {
+    location.href = "admin-dashboard.html";
+  } else {
+    alert(data.message || "Invalid admin login");
+  }
+}
+</script>
+
+</body>
+</html>
